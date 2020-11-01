@@ -5,13 +5,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.auktion.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewholder> {
     /**
@@ -28,7 +31,13 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull asset model) {
         holder.desc.setText(model.getDescription());
         holder.price.setText(model.getPrice());
-        holder.name.setText(model.getName());
+        holder.name.setText(model.getKey());
+//        try {
+////
+////        }catch (Exception e){
+////            Toast.makeText(getAppl, "", Toast.LENGTH_SHORT).show();
+////        }
+        Glide.with(holder.imageView.getContext()).load(FirebaseStorage.getInstance().getReference("cool").child(model.getKey()).getDownloadUrl()).into(holder.imageView);
     }
 
     @NonNull
