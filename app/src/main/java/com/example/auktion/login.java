@@ -55,7 +55,7 @@ public class login extends AppCompatActivity {
         }
     }
 
-    public void login(View view) {
+    public void loginuser(View view) {
         if(logn.getText().toString()=="LOGIN"){
             auth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
@@ -63,12 +63,7 @@ public class login extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            }).addOnFailureListener(e -> Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show());
         }
         if(logn.getText().toString()=="SignUp"){
             auth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -78,12 +73,7 @@ public class login extends AppCompatActivity {
                     Intent intent= new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            }).addOnFailureListener(e -> Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show());
         }
 
 

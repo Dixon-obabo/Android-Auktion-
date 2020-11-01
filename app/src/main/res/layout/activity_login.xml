@@ -49,7 +49,7 @@
     android:layout_centerHorizontal="true"
     android:layout_below="@+id/password"
     android:text="LOGIN"
-    android:onClick="login"/>
+    android:onClick="loginuser"/>
     <TextView
         android:id="@+id/signin"
         android:text="signUp"
