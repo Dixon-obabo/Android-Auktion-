@@ -7,6 +7,7 @@ public class asset {
     String date;
     String description;
 
+    public  asset(){}
     public asset(String name, String price, String key, String date, String description) {
         this.name = name;
         this.price = price;
@@ -14,6 +15,7 @@ public class asset {
         this.date = date;
         this.description = description;
     }
+
 
     public String getName() {
         return name;

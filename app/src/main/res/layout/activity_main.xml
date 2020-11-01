@@ -11,5 +11,10 @@
         android:id="@+id/recycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getsome"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
