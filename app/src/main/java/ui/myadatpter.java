@@ -1,5 +1,6 @@
 package ui;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.auktion.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewholder> {
@@ -31,13 +33,16 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull asset model) {
         holder.desc.setText(model.getDescription());
         holder.price.setText(model.getPrice());
-        holder.name.setText(model.getKey());
-//        try {
-////
-////        }catch (Exception e){
-////            Toast.makeText(getAppl, "", Toast.LENGTH_SHORT).show();
-////        }
-        Glide.with(holder.imageView.getContext()).load(FirebaseStorage.getInstance().getReference("cool").child(model.getKey()).getDownloadUrl()).into(holder.imageView);
+
+        FirebaseStorage.getInstance().getReference("cool").child(model.getKey()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(holder.imageView.getContext()).load(uri).into(holder.imageView);
+            }
+
+        });
+
     }
 
     @NonNull

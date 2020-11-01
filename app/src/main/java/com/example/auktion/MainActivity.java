@@ -33,11 +33,12 @@ import ui.myadatpter;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseAuth mauth;
+   private FirebaseAuth mauth;
     FirebaseDatabase database;
     DatabaseReference dbref;
 
-    //dbref=database.getReference("posts") FirebaseUser currentuser;
+    //dbref=database.getReference("posts")
+    FirebaseUser currentuser;
     private FirebaseStorage storage;
     RecyclerView recyclerView;
     myadatpter adapter;
@@ -49,19 +50,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         recyclerView=findViewById(R.id.recycler);
     //currentuser=mauth.getCurrentUser();
+        mauth=FirebaseAuth.getInstance();
     //dbref=database.getReference("posts");
-//    Login_status();
+    currentuser=mauth.getCurrentUser();
+        Login_status();
 //
         getdata();
     }
 
     public void Login_status(){
-//        if(currentuser==null){
-//            Intent intent= new Intent(getApplicationContext(),login.class);
-//            startActivity(intent);
-//        }else {
-//            Toast.makeText(this, "Hello:)", Toast.LENGTH_SHORT).show();
-//        }
+//      FirebaseUser  currentuser=mauth.getCurrentUser();
+        if(currentuser==null){
+            Toast.makeText(this, "Please sign In", Toast.LENGTH_SHORT).show();
+            Intent intent= new Intent(getApplicationContext(),login.class);
+            startActivity(intent);
+        }else {
+            Toast.makeText(this, "Hello:)", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -102,51 +107,34 @@ public void getdata(){
     Query query=FirebaseDatabase.getInstance().getReference("posts");
     FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
 
-adapter= new myadatpter(options);
-    //
-//    adapter= new FirebaseRecyclerAdapter<asset,assetviewholder>(options) {
-//        @NonNull
-//        @Override
-//        public assetviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View view= LayoutInflater.from(getApplicationContext()).inflate(R.layout.asset_card,parent,false);
-//            return new assetviewholder(view);
-//        }
-//
-//        @Override
-//        protected void onBindViewHolder(@NonNull assetviewholder holder, int position, @NonNull asset model) {
-//            holder.desc.setText(model.getDescription());
-//            holder.name.setText(model.getName());
-//            holder.price.setText(model.getPrice());
-//        }
-//    };
+    adapter= new myadatpter(options);
 
-    //recyclerView.hasFixedSize();
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(adapter);
     }
 
     public void getsome(View view) {
-if (FirebaseDatabase.getInstance().getReference("posts")!=null){
-    Toast.makeText(this, "the path isnt empty", Toast.LENGTH_SHORT).show();
-}
-else {
-    Toast.makeText(this, "it is empty", Toast.LENGTH_SHORT).show();
-}
-    }
-
-
-    private class assetviewholder extends RecyclerView.ViewHolder {
-
-        TextView name;
-        TextView price;
-        TextView desc;
-        public assetviewholder(@NonNull View itemView) {
-            super(itemView);
-            name=itemView.findViewById(R.id.asset_name);
-            price=itemView.findViewById(R.id.asset_price);
-            desc=itemView.findViewById(R.id.asset_desciption);
+        if (FirebaseDatabase.getInstance().getReference("posts")!=null){
+            Toast.makeText(this, "the path isnt empty", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "it is empty", Toast.LENGTH_SHORT).show();
         }
     }
+
+//
+//    private class assetviewholder extends RecyclerView.ViewHolder {
+//
+//        TextView name;
+//        TextView price;
+//        TextView desc;
+//        public assetviewholder(@NonNull View itemView) {
+//            super(itemView);
+//            name=itemView.findViewById(R.id.asset_name);
+//            price=itemView.findViewById(R.id.asset_price);
+//            desc=itemView.findViewById(R.id.asset_desciption);
+//        }
+//    }
 
     @Override
     protected void onStart() {

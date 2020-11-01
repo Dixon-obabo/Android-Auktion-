@@ -30,6 +30,7 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         name=findViewById(R.id.name);
+        auth=FirebaseAuth.getInstance();
         phone=findViewById(R.id.phone);
         email=findViewById(R.id.email);
         password=findViewById(R.id.password);
@@ -60,6 +61,7 @@ public class login extends AppCompatActivity {
             auth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
+                    Toast.makeText(login.this, "hello", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                     startActivity(intent);
                 }
