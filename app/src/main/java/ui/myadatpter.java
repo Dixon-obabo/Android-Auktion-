@@ -43,7 +43,14 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(holder.itemView.getContext(), "hello", Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(holder.itemView.getContext(),Bidasset.class);
+                intent.putExtra("asset-name",model.getName());
+                intent.putExtra("asset_price",model.getPrice());
+                intent.putExtra("asset_desc",model.getDescription());
+                intent.putExtra("key",model.getKey());
+                intent.putExtra("date",model.getDate());
+                holder.itemView.getContext().startActivity(intent);
+                //Toast.makeText(holder.itemView.getContext(), "hello", Toast.LENGTH_SHORT).show();
             }
         });
         FirebaseStorage.getInstance().getReference("cool").child(model.getKey()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -75,7 +82,9 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
             price=itemView.findViewById(R.id.asset_price);
             desc=itemView.findViewById(R.id.asset_desciption);
             imageView=itemView.findViewById(R.id.asset_image);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
+
     }
 
 }
