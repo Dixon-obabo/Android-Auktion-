@@ -8,17 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.auktion.Bidasset;
-import com.example.auktion.MainActivity;
+
 import com.example.auktion.R;
-import com.example.auktion.login;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,6 +41,7 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent= new Intent(holder.itemView.getContext(),Bidasset.class);
                 intent.putExtra("asset-name",model.getName());
                 intent.putExtra("asset_price",model.getPrice());
@@ -50,7 +49,7 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
                 intent.putExtra("key",model.getKey());
                 intent.putExtra("date",model.getDate());
                 holder.itemView.getContext().startActivity(intent);
-                //Toast.makeText(holder.itemView.getContext(), "hello", Toast.LENGTH_SHORT).show();
+
             }
         });
         FirebaseStorage.getInstance().getReference("cool").child(model.getKey()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

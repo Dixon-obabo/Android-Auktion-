@@ -5,16 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        ></com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+
+
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="getsome"/>
+        android:layout_height="wrap_content"/>
+
+    <!--    -->
+
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+
+    <!--        android:layout_width="wrap_content"-->
+
+    <!--        android:layout_height="wrap_content"-->
+
+    <!--        android:onClick="getsome"/>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
