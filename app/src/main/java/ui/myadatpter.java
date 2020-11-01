@@ -1,5 +1,7 @@
 package ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.auktion.Bidasset;
+import com.example.auktion.MainActivity;
 import com.example.auktion.R;
+import com.example.auktion.login;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,15 +39,21 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull asset model) {
         holder.desc.setText(model.getDescription());
         holder.price.setText(model.getPrice());
-
+        holder.name.setText(model.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(holder.itemView.getContext(), "hello", Toast.LENGTH_SHORT).show();
+            }
+        });
         FirebaseStorage.getInstance().getReference("cool").child(model.getKey()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(holder.imageView.getContext()).load(uri).into(holder.imageView);
             }
 
         });
+
 
     }
 
@@ -51,12 +63,6 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
         View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.asset_card,parent,false);
         return new myviewholder(view);
     }
-
-
-//    @Override
-//    public int getItemCount() {
-//        return 0;
-//    }
 
     class myviewholder extends RecyclerView.ViewHolder{
         TextView name;
