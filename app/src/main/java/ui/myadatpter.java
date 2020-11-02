@@ -43,7 +43,7 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
             public void onClick(View v) {
 
                 Intent intent= new Intent(holder.itemView.getContext(),Bidasset.class);
-                intent.putExtra("asset-name",model.getName());
+                intent.putExtra("asset_name",model.getName());
                 intent.putExtra("asset_price",model.getPrice());
                 intent.putExtra("asset_desc",model.getDescription());
                 intent.putExtra("key",model.getKey());
