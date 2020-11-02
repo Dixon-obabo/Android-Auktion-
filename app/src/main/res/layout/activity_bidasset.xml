@@ -12,20 +12,26 @@
         android:layout_height="250dp"/>
     <TextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="name"
         android:textSize="30dp"
         android:layout_below="@+id/asset_pic"/>
     <TextView
+        android:id="@+id/oldbid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/asset_pic"
+        android:layout_toRightOf="@+id/name"/>
+    <TextView
         android:id="@+id/email"
         android:layout_width="match_parent"
        android:hint="name"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/price"/>
+        android:layout_below="@+id/newbid"/>
 
     <EditText
-        android:id="@+id/price"
+        android:id="@+id/newbid"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"/>
@@ -48,7 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BId"
+        android:onClick="postbid"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/asset_pic"
-        android:layout_toRightOf="@id/price"/>
+        android:layout_toRightOf="@id/newbid"/>
 </RelativeLayout>
