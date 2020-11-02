@@ -14,30 +14,41 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="name"
+        android:textSize="30dp"
         android:layout_below="@+id/asset_pic"/>
     <TextView
         android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
+       android:hint="name"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/price"/>
+
+    <EditText
         android:id="@+id/price"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"/>
+
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/date"
         />
+
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email"/>
+
     <Button
         android:id="@+id/bidButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BId"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/asset_pic"
         android:layout_toRightOf="@id/price"/>
 </RelativeLayout>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class Bidasset extends AppCompatActivity {
 
@@ -22,5 +23,6 @@ public class Bidasset extends AppCompatActivity {
         asset_key=intent.getStringExtra("key");
         asset_desc=intent.getStringExtra("asset_description");
         date=intent.getStringExtra("date");
+        Toast.makeText(this, asset_desc+asset_name, Toast.LENGTH_SHORT).show();
     }
 }
