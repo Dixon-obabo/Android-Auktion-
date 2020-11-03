@@ -16,6 +16,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdReceiver;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -53,7 +56,6 @@ public class Bidasset extends AppCompatActivity {
         mail=intent.getStringExtra("email");
         name=findViewById(R.id.name);
         price=findViewById(R.id.oldbid);
-
         desc=findViewById(R.id.description);
         email=findViewById(R.id.email);
         det=findViewById(R.id.date);
@@ -64,9 +66,14 @@ public class Bidasset extends AppCompatActivity {
     }
 
     public void postbid(View view) {
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Toast.makeText(Bidasset.this, s, Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-        Toast.makeText(this, Integer.parseInt(nbid.getText().toString()) + Integer.parseInt(price.getText().toString()), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, Integer.parseInt(nbid.getText().toString()) + Integer.parseInt(price.getText().toString()), Toast.LENGTH_SHORT).show();
 
     }
 
