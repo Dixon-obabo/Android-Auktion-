@@ -35,7 +35,10 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
-        android:inputType="number"/>
+        android:inputType="number"
+
+        android:hint="Increase bid by"
+        android:focusedByDefault="true"/>
 
     <TextView
         android:id="@+id/description"

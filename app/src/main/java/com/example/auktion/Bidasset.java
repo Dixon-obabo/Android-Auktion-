@@ -79,6 +79,7 @@ public class Bidasset extends AppCompatActivity {
             String mbb=nbid.getText().toString();
             int m=Integer.parseInt(mbb);
             int n=Integer.parseInt(nbb);
+            Toast.makeText(this, String.valueOf(m+n), Toast.LENGTH_SHORT).show();
         }
 
         //+Integer.parseInt(nbid.getText().toString());
