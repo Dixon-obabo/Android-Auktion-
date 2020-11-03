@@ -34,7 +34,8 @@
         android:id="@+id/newbid"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"/>
+        android:layout_below="@+id/name"
+         android:inputType="number"/>
 
     <TextView
         android:id="@+id/description"

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,16 +71,21 @@ public class Bidasset extends AppCompatActivity {
     }
 
     public void postbid(View view) {
-        currentuser=auth.getCurrentUser();
-        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
-            @Override
-            public void onSuccess(String s) {
-                Toast.makeText(Bidasset.this, s, Toast.LENGTH_SHORT).show();
-                bid newbid=new bid(String.valueOf(currentuser.getEmail()),String.valueOf(Integer.parseInt(price.getText().toString().trim()+Integer.parseInt(nbid.getText().toString().trim()))),asset_name,s);
-                //Toast.makeText(Bidasset.this, String.valueOf(newbid), Toast.LENGTH_SHORT).show();
-                Toast.makeText(Bidasset.this, Integer.parseInt(price.getText().toString().trim())+Integer.parseInt(nbid.getText().toString().trim()), Toast.LENGTH_LONG).show();
-            }
-        });
+        //currentuser=auth.getCurrentUser();
+        String nbb=price.getText().toString();
+        int n=Integer.parseInt(nbb);
+        Toast.makeText(this, String.valueOf(n), Toast.LENGTH_SHORT).show();
+//        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+//            @Override
+//            public void onSuccess(String s) {
+//                //Toast.makeText(Bidasset.this, s, Toast.LENGTH_SHORT).show();
+//               // Toast.makeText(Bidasset.this, n, Toast.LENGTH_SHORT).show();
+//                //bid newbid=new bid(String.valueOf(currentuser.getEmail()),String.valueOf(Integer.parseInt(price.getText().toString().trim()+Integer.parseInt(nbid.getText().toString().trim()))),asset_name,s);
+//                //Toast.makeText(Bidasset.this, String.valueOf(newbid), Toast.LENGTH_SHORT).show();
+//               // Toast.makeText(Bidasset.this, Integer.parseInt(price.getText().toString().trim())+Integer.parseInt(nbid.getText().toString().trim()), Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
 
         //FirebaseDatabase.getInstance().getReference("bids").child(asset_key).child(FirebaseDatabase.getInstance().getReference().push().getKey()).setValue("yyooh");
         //Toast.makeText(this, Integer.parseInt(nbid.getText().toString()) + Integer.parseInt(price.getText().toString()), Toast.LENGTH_SHORT).show();
@@ -96,7 +102,8 @@ public class Bidasset extends AppCompatActivity {
         FirebaseStorage.getInstance().getReference("cool").child(asset_key).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(getApplicationContext()).load(uri).into(asset_image);
+                Glide.with(getApplicationContext()).load(uri).into(asset_image).getView().setScaleType(ImageView.ScaleType.CENTER_CROP);
+
             }
         });
     }
