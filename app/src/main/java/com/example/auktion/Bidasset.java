@@ -56,7 +56,7 @@ public class Bidasset extends AppCompatActivity {
         asset_name=intent.getStringExtra("asset_name");
         asset_price=intent.getStringExtra("asset_price");
         asset_key=intent.getStringExtra("key");
-        asset_desc=intent.getStringExtra("asset_description");
+        asset_desc=intent.getStringExtra("asset_desc");
         date=intent.getStringExtra("date");
         mail=intent.getStringExtra("email");
         name=findViewById(R.id.name);
@@ -65,20 +65,29 @@ public class Bidasset extends AppCompatActivity {
         email=findViewById(R.id.email);
         det=findViewById(R.id.date);
         nbid=findViewById(R.id.newbid);
-        Toast.makeText(this, asset_desc+asset_name, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, asset_desc+asset_name, Toast.LENGTH_SHORT).show();
         putdata();
 
     }
 
     public void postbid(View view) {
         //currentuser=auth.getCurrentUser();
-        String nbb=price.getText().toString();
-        int n=Integer.parseInt(nbb);
-        Toast.makeText(this, String.valueOf(n), Toast.LENGTH_SHORT).show();
+        if(nbid.getText()==null){
+            Toast.makeText(this, "Please place a bid", Toast.LENGTH_SHORT).show();
+        }else {
+            String nbb=price.getText().toString();
+            String mbb=nbid.getText().toString();
+            int m=Integer.parseInt(mbb);
+            int n=Integer.parseInt(nbb);
+        }
+
+        //+Integer.parseInt(nbid.getText().toString());
+       // int k=m+n;
+//        Toast.makeText(this, String.valueOf(k), Toast.LENGTH_SHORT).show();
 //        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
 //            @Override
 //            public void onSuccess(String s) {
-//                //Toast.makeText(Bidasset.this, s, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Bidasset.this, s, Toast.LENGTH_SHORT).show();
 //               // Toast.makeText(Bidasset.this, n, Toast.LENGTH_SHORT).show();
 //                //bid newbid=new bid(String.valueOf(currentuser.getEmail()),String.valueOf(Integer.parseInt(price.getText().toString().trim()+Integer.parseInt(nbid.getText().toString().trim()))),asset_name,s);
 //                //Toast.makeText(Bidasset.this, String.valueOf(newbid), Toast.LENGTH_SHORT).show();
