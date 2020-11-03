@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -21,6 +22,8 @@ import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import ui.bid;
 
 public class Bidasset extends AppCompatActivity {
 
@@ -38,6 +41,7 @@ public class Bidasset extends AppCompatActivity {
    FirebaseDatabase database;
    DatabaseReference dbref;
    FirebaseAuth auth;
+   FirebaseUser currentuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +70,13 @@ public class Bidasset extends AppCompatActivity {
     }
 
     public void postbid(View view) {
-
+        currentuser=auth.getCurrentUser();
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
             public void onSuccess(String s) {
                 Toast.makeText(Bidasset.this, s, Toast.LENGTH_SHORT).show();
+                bid newbid=new bid(String.valueOf(currentuser.getEmail()),String.valueOf(Integer.parseInt(price.getText().toString().trim()+Integer.parseInt(nbid.getText().toString().trim()))),asset_name,s);
+
             }
         });
 
