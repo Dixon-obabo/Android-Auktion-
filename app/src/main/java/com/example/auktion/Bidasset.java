@@ -66,6 +66,7 @@ public class Bidasset extends AppCompatActivity {
     }
 
     public void postbid(View view) {
+
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
             @Override
             public void onSuccess(String s) {
@@ -73,6 +74,7 @@ public class Bidasset extends AppCompatActivity {
             }
         });
 
+        FirebaseDatabase.getInstance().getReference("bids").child(asset_key).setValue("yyooh");
         //Toast.makeText(this, Integer.parseInt(nbid.getText().toString()) + Integer.parseInt(price.getText().toString()), Toast.LENGTH_SHORT).show();
 
     }
