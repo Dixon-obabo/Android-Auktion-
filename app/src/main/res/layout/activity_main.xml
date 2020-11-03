@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,6 +17,7 @@
 
             >
 
+
             <ImageView
                 android:id="@+id/hotpic"
                 android:layout_width="match_parent"
@@ -24,8 +26,19 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
+
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/hotname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="name"
+        android:gravity="center"
+        app:layout_anchor="@id/appbarlayout"
+        app:layout_anchorGravity="bottom|right"
+        android:layout_margin="5dp"
+        />
 
 
 
@@ -37,6 +50,7 @@
         android:layout_height="wrap_content"
        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         />
+
 
     <!--    -->
 

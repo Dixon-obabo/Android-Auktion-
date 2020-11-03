@@ -6,23 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".Bidasset">
 
-    <ImageView
-        android:id="@+id/asset_pic"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cord"
         android:layout_width="match_parent"
-        android:layout_height="250dp"/>
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/asset_pic"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+        <TextView
+            android:id="@+id/oldbid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            app:layout_anchor="@id/asset_pic"
+            app:layout_anchorGravity="bottom|end"
+            android:textSize="30dp"
+            android:backgroundTint="@color/design_default_color_secondary"
+            android:layout_marginBottom="20dp"
+            />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="name"
         android:textSize="30dp"
-        android:layout_below="@+id/asset_pic"/>
-    <TextView
-        android:id="@+id/oldbid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/asset_pic"
-        android:layout_toRightOf="@+id/name"/>
+        android:layout_below="@+id/cord"/>
+
     <TextView
         android:id="@+id/email"
         android:layout_width="match_parent"
@@ -32,13 +46,13 @@
 
     <EditText
         android:id="@+id/newbid"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:inputType="number"
-
         android:hint="Increase bid by"
-        android:focusedByDefault="true"/>
+        android:focusedByDefault="true"
+        />
 
     <TextView
         android:id="@+id/description"
@@ -59,7 +73,9 @@
         android:layout_height="wrap_content"
         android:text="BId"
         android:onClick="postbid"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/asset_pic"
-        android:layout_toRightOf="@id/newbid"/>
+        android:layout_marginTop="50dp"
+        android:padding="5dp"
+        android:layout_below="@+id/cord"
+        android:layout_alignParentRight="true"
+        />
 </RelativeLayout>
