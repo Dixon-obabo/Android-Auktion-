@@ -99,6 +99,7 @@ public class Bidasset extends AppCompatActivity {
                 Glide.with(getApplicationContext()).load(uri).into(asset_image);
             }
         });
-
     }
+
+
 }
