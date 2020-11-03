@@ -76,11 +76,12 @@ public class Bidasset extends AppCompatActivity {
             public void onSuccess(String s) {
                 Toast.makeText(Bidasset.this, s, Toast.LENGTH_SHORT).show();
                 bid newbid=new bid(String.valueOf(currentuser.getEmail()),String.valueOf(Integer.parseInt(price.getText().toString().trim()+Integer.parseInt(nbid.getText().toString().trim()))),asset_name,s);
-
+                //Toast.makeText(Bidasset.this, String.valueOf(newbid), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Bidasset.this, Integer.parseInt(price.getText().toString().trim())+Integer.parseInt(nbid.getText().toString().trim()), Toast.LENGTH_LONG).show();
             }
         });
 
-        FirebaseDatabase.getInstance().getReference("bids").child(asset_key).child(FirebaseDatabase.getInstance().getReference().push().getKey()).setValue("yyooh");
+        //FirebaseDatabase.getInstance().getReference("bids").child(asset_key).child(FirebaseDatabase.getInstance().getReference().push().getKey()).setValue("yyooh");
         //Toast.makeText(this, Integer.parseInt(nbid.getText().toString()) + Integer.parseInt(price.getText().toString()), Toast.LENGTH_SHORT).show();
 
     }
