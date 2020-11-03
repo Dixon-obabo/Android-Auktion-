@@ -65,11 +65,13 @@ public class Bidasset extends AppCompatActivity {
 
     public void postbid(View view) {
 
-        Toast.makeText(this, nbid.getText().toString()+price.getText().toString(), Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, Integer.parseInt(nbid.getText().toString()) + Integer.parseInt(price.getText().toString()), Toast.LENGTH_SHORT).show();
 
     }
 
     public  void putdata(){
+
         desc.setText(asset_desc);
         det.setText(date);
         email.setText(mail);
