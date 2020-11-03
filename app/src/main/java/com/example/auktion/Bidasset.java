@@ -74,7 +74,7 @@ public class Bidasset extends AppCompatActivity {
             }
         });
 
-        FirebaseDatabase.getInstance().getReference("bids").child(asset_key).setValue("yyooh");
+        FirebaseDatabase.getInstance().getReference("bids").child(asset_key).child(FirebaseDatabase.getInstance().getReference().push().getKey()).setValue("yyooh");
         //Toast.makeText(this, Integer.parseInt(nbid.getText().toString()) + Integer.parseInt(price.getText().toString()), Toast.LENGTH_SHORT).show();
 
     }
