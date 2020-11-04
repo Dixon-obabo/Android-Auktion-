@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,14 +75,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-//    public void getsome(View view) {
-//        if (FirebaseDatabase.getInstance().getReference("posts")!=null){
-//            Toast.makeText(this, "the path isnt empty", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            Toast.makeText(this, "it is empty", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+
 
     public  void gethot(){
         FirebaseDatabase.getInstance().getReference("hot").addChildEventListener(hotchild);
@@ -89,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     ChildEventListener hotchild=new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//            Toast.makeText(MainActivity.this, snapshot.getKey(), Toast.LENGTH_SHORT).show();
+
             String m=snapshot.getValue().toString();
             String []data=m.split(",");
             hotbutton.setText(data[2].replace("name=",""));
@@ -135,4 +130,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.stopListening();
     }
 
+    public void opendialog(View view) {
+        Dialog dialog=new Dialog(getApplicationContext());
+        dialog.setContentView(R.layout.userdialog);
+        dialog.show();
+
+
+    }
 }

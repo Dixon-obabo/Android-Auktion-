@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +44,8 @@ public class Bidasset extends AppCompatActivity {
     TextView name,price,desc,email,det;
     EditText nbid;
     ImageView asset_image;
+
+    private  Button bidbutton;
    private  FirebaseStorage storage;
    StorageReference store;
    FirebaseDatabase database;
@@ -72,7 +75,10 @@ public class Bidasset extends AppCompatActivity {
         det=findViewById(R.id.date);
         nbid=findViewById(R.id.newbid);
         currentuser=auth.getCurrentUser();
-
+       // bidbutton=(Button)findViewById(R.id.bidButton);
+       // bidbutton.setBackground();
+       // bidbutton.
+      //  bidbutton.setBackgroundResource(R.drawable.bidback);
         putdata();
         getnewbid();
     }
@@ -140,6 +146,17 @@ public class Bidasset extends AppCompatActivity {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             String []data=snapshot.getValue().toString().split(",");
+            String mail=data[3].replace("email=","").replace("}","");
+
+//            if(currentuser.getEmail()!=mail){
+//                bidbutton.setBackground(getResources().getDrawable(R.drawable.rbb));
+//                bidbutton.setBackgroundDrawable(getResources().getDrawable(R.drawable.gbb));
+//                //Toast.makeText(Bidasset.this, "", Toast.LENGTH_SHORT).show();
+//            }
+//            else {
+//                bidbutton.setBackground(getResources().getDrawable(R.drawable.gbb));
+//            }
+
 
             price.setText(data[2].replace("bid=","")+" Ksh");
             String []name=data[3].replace("email=","").replace("}","").split("@");
