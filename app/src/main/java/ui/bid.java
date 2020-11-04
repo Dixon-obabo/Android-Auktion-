@@ -2,13 +2,13 @@ package ui;
 
 public class bid {
 String email;
-String bid;
+int bid;
 String name;
 String messagereg;
  bid (){}
 
 
-    public bid(String email, String bid, String name, String messagereg) {
+    public bid(String email, int bid, String name, String messagereg) {
         this.email = email;
         this.bid = bid;
         this.name = name;
@@ -23,13 +23,20 @@ String messagereg;
         this.email = email;
     }
 
-    public String getBid() {
+    public int getBid() {
         return bid;
     }
 
-    public void setBid(String bid) {
+    public void setBid(int bid) {
         this.bid = bid;
     }
+//    public String getBid() {
+//        return bid;
+//    }
+//
+//    public void setBid(String bid) {
+//        this.bid = bid;
+//    }
 
     public String getName() {
         return name;

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,47 +71,54 @@ public class Bidasset extends AppCompatActivity {
         email=findViewById(R.id.email);
         det=findViewById(R.id.date);
         nbid=findViewById(R.id.newbid);
-       // Toast.makeText(this, asset_desc+asset_name, Toast.LENGTH_SHORT).show();
+        currentuser=auth.getCurrentUser();
+
         putdata();
         getnewbid();
     }
 
     public void postbid(View view) {
-        //currentuser=auth.getCurrentUser();
+
         if(nbid.getText()==null){
             Toast.makeText(this, "Please place a bid", Toast.LENGTH_SHORT).show();
         }else {
-            String nbb=price.getText().toString();
+            String nbb=price.getText().toString().replace("Ksh","").trim();
             String mbb=nbid.getText().toString();
             int m=Integer.parseInt(mbb);
             int n=Integer.parseInt(nbb);
-            Toast.makeText(this, String.valueOf(m+n), Toast.LENGTH_SHORT).show();
+
+            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+
+                bid newbid=new bid(String.valueOf(currentuser.getEmail()),m+n,asset_name,s);
+
+                FirebaseDatabase.getInstance().getReference("bids").child(asset_key).child(FirebaseDatabase.getInstance().getReference().push().getKey()).setValue(newbid).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Bidasset.this, "Bid posted", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Bidasset.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
+        });
+
+
         }
 
-        //+Integer.parseInt(nbid.getText().toString());
-       // int k=m+n;
-//        Toast.makeText(this, String.valueOf(k), Toast.LENGTH_SHORT).show();
-//        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
-//            @Override
-//            public void onSuccess(String s) {
-//                Toast.makeText(Bidasset.this, s, Toast.LENGTH_SHORT).show();
-//               // Toast.makeText(Bidasset.this, n, Toast.LENGTH_SHORT).show();
-//                //bid newbid=new bid(String.valueOf(currentuser.getEmail()),String.valueOf(Integer.parseInt(price.getText().toString().trim()+Integer.parseInt(nbid.getText().toString().trim()))),asset_name,s);
-//                //Toast.makeText(Bidasset.this, String.valueOf(newbid), Toast.LENGTH_SHORT).show();
-//               // Toast.makeText(Bidasset.this, Integer.parseInt(price.getText().toString().trim())+Integer.parseInt(nbid.getText().toString().trim()), Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
-
-        //FirebaseDatabase.getInstance().getReference("bids").child(asset_key).child(FirebaseDatabase.getInstance().getReference().push().getKey()).setValue("yyooh");
-        //Toast.makeText(this, Integer.parseInt(nbid.getText().toString()) + Integer.parseInt(price.getText().toString()), Toast.LENGTH_SHORT).show();
 
     }
 
     public  void putdata(){
 
         desc.setText(asset_desc);
-        det.setText(date);
+        det.setText("Ends on:"+date);
         email.setText(mail);
         name.setText(asset_name);
         price.setText(asset_price);
@@ -134,6 +142,8 @@ public class Bidasset extends AppCompatActivity {
             String []data=snapshot.getValue().toString().split(",");
 
             price.setText(data[2].replace("bid=","")+" Ksh");
+            String []name=data[3].replace("email=","").replace("}","").split("@");
+            email.setText(name[0]);
         }
 
         @Override
