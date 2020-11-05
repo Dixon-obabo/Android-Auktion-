@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -36,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser currentuser;
     RecyclerView recyclerView;
     myadatpter adapter;
-    ImageView hotpic;
-    Button hotbutton;
-
+    ImageView hotpic, userdp;
+    Button hotbutton, lgout, myacc;
+    TextView uname, umail, uphone;
+    String username, useremail, userphone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,8 +135,48 @@ public class MainActivity extends AppCompatActivity {
     public void opendialog(View view) {
         Dialog dialog=new Dialog(getApplicationContext());
         dialog.setContentView(R.layout.userdialog);
+        userdp=dialog.findViewById(R.id.userdp);
+        umail=dialog.findViewById(R.id.uemail);
+        uname=dialog.findViewById(R.id.uname);
+        uphone=dialog.findViewById(R.id.uphone);
+
+
         dialog.show();
 
+
+    }
+
+    public  void getuserdata(){
+        ChildEventListener getuser= new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        FirebaseDatabase.getInstance().getReference("users").child(currentuser.getUid()).addChildEventListener(getuser);
+    }
+    public void logout(View view) {
+        mauth.signOut();
 
     }
 }

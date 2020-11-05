@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class login extends AppCompatActivity {
 
@@ -25,6 +27,7 @@ public class login extends AppCompatActivity {
     TextView sigin;
     FirebaseAuth auth;
     Button logn;
+    FirebaseUser currentuser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +74,12 @@ public class login extends AppCompatActivity {
             auth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
-                    Toast.makeText(login.this, "Your Account was Created", Toast.LENGTH_SHORT).show();
-                    Intent intent= new Intent(getApplicationContext(),MainActivity.class);
-                    startActivity(intent);
+                    currentuser= auth.getCurrentUser();
+                    String key= currentuser.getUid();
+                    Toast.makeText(login.this, "key", Toast.LENGTH_SHORT).show();
+
+                    FirebaseDatabase.getInstance().getReference("userdata").setValue(key);
+
                 }
             }).addOnFailureListener(e -> Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show());
         }
