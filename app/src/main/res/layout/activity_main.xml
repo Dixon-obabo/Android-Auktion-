@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:text="name"
         android:gravity="center"
+        android:onClick="opendialog"
         app:layout_anchor="@id/appbarlayout"
         app:layout_anchorGravity="bottom|right"
         android:layout_margin="5dp"

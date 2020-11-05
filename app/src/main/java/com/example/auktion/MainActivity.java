@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         Login_status();
         getdata();
         gethot();
+        getuserdata();
     }
 
     public void Login_status(){
@@ -133,16 +134,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void opendialog(View view) {
-        Dialog dialog=new Dialog(getApplicationContext());
-        dialog.setContentView(R.layout.userdialog);
-        userdp=dialog.findViewById(R.id.userdp);
-        umail=dialog.findViewById(R.id.uemail);
-        uname=dialog.findViewById(R.id.uname);
-        uphone=dialog.findViewById(R.id.uphone);
-
-
-        dialog.show();
-
+//        Dialog dialog=new Dialog(getApplicationContext());
+//        dialog.setContentView(R.layout.userdialog);
+//        userdp=dialog.findViewById(R.id.userdp);
+//        umail=dialog.findViewById(R.id.uemail);
+//        uname=dialog.findViewById(R.id.uname);
+//        uphone=dialog.findViewById(R.id.uphone);
+//
+//
+//        dialog.show();
+        Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -150,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
         ChildEventListener getuser= new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                String []data=snapshot.getValue().toString().split(",");
+                username=data[0];
             }
 
             @Override
@@ -175,8 +177,8 @@ public class MainActivity extends AppCompatActivity {
         };
         FirebaseDatabase.getInstance().getReference("users").child(currentuser.getUid()).addChildEventListener(getuser);
     }
+
     public void logout(View view) {
         mauth.signOut();
-
     }
 }
