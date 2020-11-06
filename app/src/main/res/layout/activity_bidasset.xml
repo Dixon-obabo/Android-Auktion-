@@ -78,9 +78,9 @@
         android:layout_height="wrap_content"
         android:text="BId"
         android:onClick="postbid"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:padding="5dp"
-        android:layout_below="@+id/cord"
+        android:layout_below="@+id/name"
         android:layout_alignParentRight="true"
         />
 </RelativeLayout>

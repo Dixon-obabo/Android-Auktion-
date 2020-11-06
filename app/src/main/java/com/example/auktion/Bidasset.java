@@ -148,14 +148,16 @@ public class Bidasset extends AppCompatActivity {
             String []data=snapshot.getValue().toString().split(",");
             String mail=data[3].replace("email=","").replace("}","");
 
-//            if(currentuser.getEmail()!=mail){
+            if(currentuser.getEmail()!=mail){
+                //bidbutton.
+//          bidbutton.setBackgroundResource(R.drawable.rbb);
 //                bidbutton.setBackground(getResources().getDrawable(R.drawable.rbb));
 //                bidbutton.setBackgroundDrawable(getResources().getDrawable(R.drawable.gbb));
 //                //Toast.makeText(Bidasset.this, "", Toast.LENGTH_SHORT).show();
-//            }
-//            else {
+            }
+            else {
 //                bidbutton.setBackground(getResources().getDrawable(R.drawable.gbb));
-//            }
+            }
 
 
             price.setText(data[2].replace("bid=","")+" Ksh");
