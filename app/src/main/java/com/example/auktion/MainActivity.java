@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     Button hotbutton, lgout, myacc;
     TextView uname, umail, uphone;
     String username, useremail, userphone;
-
+    ProgressBar pbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recycler);
         hotpic=findViewById(R.id.hotpic);
         hotbutton=findViewById(R.id.hotname);
+        pbar=findViewById(R.id.progress);
         mauth=FirebaseAuth.getInstance();
         currentuser=mauth.getCurrentUser();
         Login_status();
@@ -94,9 +96,13 @@ public class MainActivity extends AppCompatActivity {
             FirebaseStorage.getInstance().getReference("cool").child(snapshot.getKey()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
+
                     Glide.with(getApplicationContext()).load(uri).into(hotpic).getView().setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    pbar.setVisibility(View.GONE);
+
                 }
             });
+
         }
 
         @Override
