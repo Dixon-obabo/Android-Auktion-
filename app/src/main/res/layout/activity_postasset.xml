@@ -5,26 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".postasset">
-<ImageButton
-    android:id="@+id/postimage"
-    android:layout_width="match_parent"
-    android:background="@drawable/ic_baseline_add_a_photo_24"
-    android:layout_height="300dp"/>
+
+    <ImageButton
+        android:id="@+id/postimage"
+        android:layout_width="match_parent"
+        android:background="@drawable/ic_baseline_add_a_photo_24"
+        android:layout_height="300dp"
+        />
     <EditText
         android:id="@+id/postname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Assetname"
         android:gravity="center"
-         android:layout_below="@+id/postimage"/>
-<EditText
-    android:id="@+id/postprice"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="number"
-    android:hint="reserve price"
-    android:gravity="center"
-    android:layout_below="@+id/postname"/>
+        android:layout_below="@+id/postimage"
+        />
+
+    <EditText
+        android:id="@+id/postprice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="reserve price"
+        android:gravity="center"
+        android:layout_below="@+id/postname"/>
 
     <EditText
         android:id="@+id/postdesc"
@@ -40,4 +44,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/postdesc"
         android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>
