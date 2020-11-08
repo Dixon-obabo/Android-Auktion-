@@ -149,8 +149,11 @@ public class MainActivity extends AppCompatActivity {
 //
 //
 //        dialog.show();
-        Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
 
+        Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
+//        Intent intent= new Intent(getApplicationContext(),postasset.class);
+//        startActivity(intent);
+//
     }
 
     public  void getuserdata(){
@@ -186,5 +189,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void logout(View view) {
         mauth.signOut();
+    }
+
+    public void openbidasset(View view) {
+        Intent intent= new Intent(getApplicationContext(),postasset.class);
+        startActivity(intent);
     }
 }

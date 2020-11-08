@@ -14,18 +14,16 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-
             >
 
 
             <ImageView
                 android:id="@+id/hotpic"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -79,6 +77,6 @@
         app:layout_anchorGravity="bottom|right"
         android:layout_height="match_parent"
         android:src="@drawable/ic_baseline_add_24"
-        android:onClick="opendialog"
+        android:onClick="openbidasset"
         android:layout_margin="10dp"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
