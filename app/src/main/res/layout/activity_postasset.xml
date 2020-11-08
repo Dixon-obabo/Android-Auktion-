@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:background="@drawable/ic_baseline_add_a_photo_24"
         android:layout_height="300dp"
+        android:onClick="pickphoto"
         />
+
     <EditText
         android:id="@+id/postname"
         android:layout_width="match_parent"
@@ -26,15 +28,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="reserve price"
+        android:hint="Reserve price"
         android:gravity="center"
         android:layout_below="@+id/postname"/>
 
     <EditText
         android:id="@+id/postdesc"
-        android:inputType="textLongMessage"
+        android:inputType="textMultiLine"
         android:layout_width="match_parent"
-        android:hint="description"
+        android:hint="Description"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_below="@+id/postprice"/>
