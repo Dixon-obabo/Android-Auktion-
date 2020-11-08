@@ -1,10 +1,13 @@
 package com.example.auktion;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -13,11 +16,24 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+
+import ui.asset;
 
 public class postasset extends AppCompatActivity {
 
+    Uri uri;
     DatePicker picker;
     ImageButton img;
     EditText pstname,pstprice,pstdesc;
@@ -34,38 +50,75 @@ public class postasset extends AppCompatActivity {
         img=findViewById(R.id.postimage);
     }
 
+
     public void trial(View view) {
         Toast.makeText(this, String.valueOf(picker.getDayOfMonth()), Toast.LENGTH_SHORT).show();
     }
 
+
     public void postasset(View view) {
-        String dat=String.valueOf(picker.getDayOfMonth())+"/"+String.valueOf(picker.getMonth()+1)+"/"+String.valueOf(picker.getYear());
-        //Toast.makeText(this, String.valueOf(picker.getMonth()+1), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, dat, Toast.LENGTH_SHORT).show();
+
+        String dat=picker.getDayOfMonth()+"/"+String.valueOf(picker.getMonth()+1)+"/"+picker.getYear();
+        String key= FirebaseDatabase.getInstance().getReference().push().getKey();
+        asset mine= new asset(pstname.getText().toString(),pstprice.getText().toString(),key,dat,pstdesc.getText().toString());
+        Toast.makeText(this, mine.getDate(), Toast.LENGTH_SHORT).show();
+
+        FirebaseDatabase.getInstance().getReference("posts").child(key).setValue(mine).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(postasset.this, "Asset posted ", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(postasset.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        FirebaseStorage.getInstance().getReference("cool").child(key).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(postasset.this, "image uploaded ", Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(postasset.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
     }
+
+
 
     public void pickphoto(View view) {
-        Intent intent= new Intent(Intent.ACTION_PICK);
+        Intent intent= new Intent();
         intent.setType("image/*");
-        startActivityForResult(intent,PICK_PHOTO);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==PICK_PHOTO && resultCode==RESULT_OK){
-            try {
-                Bitmap bitmap= MediaStore.Images.Media.getBitmap(getContentResolver(),data.getData());
-                img.setImageBitmap(bitmap);
-            }catch (FileNotFoundException e){
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }catch (IOException e){
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
+
+
+        if(requestCode==1 && resultCode==RESULT_OK){
+            img.setImageURI(data.getData());
+            uri=data.getData();
+
         }
 
     }
+
+
 
 
 
