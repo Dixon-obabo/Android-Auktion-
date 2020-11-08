@@ -6,49 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".postasset">
 
-    <ImageButton
-        android:id="@+id/postimage"
-        android:layout_width="match_parent"
-        android:background="@drawable/ic_baseline_add_a_photo_24"
-        android:layout_height="300dp"
-        android:onClick="pickphoto"
-        />
-
-    <EditText
-        android:id="@+id/postname"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Assetname"
-        android:gravity="center"
-        android:layout_below="@+id/postimage"
-        />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/postprice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="Reserve price"
-        android:gravity="center"
-        android:layout_below="@+id/postname"/>
 
-    <EditText
-        android:id="@+id/postdesc"
-        android:inputType="textMultiLine"
-        android:layout_width="match_parent"
-        android:hint="Description"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/postprice"/>
+        <ImageButton
+            android:id="@+id/postimage"
+            android:layout_width="match_parent"
+            android:background="@drawable/ic_baseline_add_a_photo_24"
+            android:layout_height="300dp"
+            android:onClick="pickphoto"
+            />
 
-    <DatePicker
-        android:id="@+id/datepicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/postdesc"
-        android:layout_centerHorizontal="true"
-        android:datePickerMode="calendar"
-        />
+        <EditText
+            android:id="@+id/postname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Asset name"
+            android:gravity="center"
+            android:layout_below="@+id/postimage"
+            />
+
+        <EditText
+            android:id="@+id/postprice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Reserve price"
+            android:gravity="center"
+            android:layout_below="@+id/postname"/>
+
+        <EditText
+            android:id="@+id/postdesc"
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:hint="Description"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/postprice"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_margin="3dp"
+            android:text="Please pick an auction closing date:"
+            />
+
+        <DatePicker
+            android:id="@+id/datepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/postdesc"
+
+            android:datePickerMode="calendar"
+            />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>
+
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
@@ -61,4 +83,5 @@
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
         />
+
 </RelativeLayout>
