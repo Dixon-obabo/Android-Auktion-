@@ -89,7 +89,7 @@ public class login extends AppCompatActivity {
 
                     user me= new user(name.getText().toString(),uid,phone.getText().toString(),email.getText().toString());
 
-                    FirebaseDatabase.getInstance().getReference("users").child(uid).setValue(me).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    FirebaseDatabase.getInstance().getReference("biders").child(uid).setValue(me).addOnSuccessListener(new OnSuccessListener<Void>() {
 
                         @Override
                         public void onSuccess(Void aVoid) {

@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         dialog= new Dialog(this);
         mauth=FirebaseAuth.getInstance();
         currentuser=mauth.getCurrentUser();
+      //  username=currentuser.getDisplayName();
         Login_status();
         getdata();
         gethot();
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
             String m=snapshot.getValue().toString();
             String []data=m.split(",");
-            hotbutton.setText(data[2].replace("name=",""));
+           // hotbutton.setText(data[2].replace("name=",""));
             FirebaseStorage.getInstance().getReference("cool").child(snapshot.getKey()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
@@ -156,14 +157,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                // Toast.makeText(MainActivity.this, "the button works", Toast.LENGTH_SHORT).show();
            mauth.signOut();
-           Login_status();
+           Intent intent = new Intent(getApplicationContext(),login.class);
+           startActivity(intent);
+           //Login_status();
             }
         });
 
 
         dialog.show();
 
-       // Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
 //        Intent intent= new Intent(getApplicationContext(),postasset.class);
 //        startActivity(intent);
 //
@@ -171,35 +174,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void getuserdata(){
-        ChildEventListener getuser= new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String []data=snapshot.getValue().toString().split(",");
-                username=data[0];
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        FirebaseDatabase.getInstance().getReference("users").child(currentuser.getUid()).addChildEventListener(getuser);
+        FirebaseDatabase.getInstance().getReference("biders/"+currentuser.getPhoneNumber()).addChildEventListener(getuser);
     }
+
+    ChildEventListener getuser= new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            String []data=snapshot.getValue().toString().split(",");
+            userphone=snapshot.toString();
+            username=data[1].replace("name=","");
+            hotbutton.setText(username);
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
 
     public void logout(View view) {
         mauth.signOut();
