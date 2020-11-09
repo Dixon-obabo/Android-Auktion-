@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         dialog= new Dialog(this);
         mauth=FirebaseAuth.getInstance();
         currentuser=mauth.getCurrentUser();
-      //  username=currentuser.getDisplayName();
         Login_status();
         getdata();
         gethot();
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent= new Intent(getApplicationContext(),login.class);
             startActivity(intent);
         }else {
-            //Toast.makeText(this, "Hello:)", Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -96,13 +95,12 @@ public class MainActivity extends AppCompatActivity {
 
             String m=snapshot.getValue().toString();
             String []data=m.split(",");
-           // hotbutton.setText(data[2].replace("name=",""));
+
             FirebaseStorage.getInstance().getReference("cool").child(snapshot.getKey()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
 
                     Glide.with(getApplicationContext()).load(uri).into(hotpic).getView().setScaleType(ImageView.ScaleType.CENTER_CROP);
-                   // pbar.setVisibility(View.GONE);
 
                 }
             });
@@ -144,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void opendialog(View view) {
-         //dialog=new Dialog(getApplicationContext());
+
+
         dialog.setContentView(R.layout.userdialog);
         lgout=dialog.findViewById(R.id.logout);
         userdp=dialog.findViewById(R.id.userdp);
@@ -158,21 +157,15 @@ public class MainActivity extends AppCompatActivity {
         lgout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(MainActivity.this, "the button works", Toast.LENGTH_SHORT).show();
-           mauth.signOut();
-           Intent intent = new Intent(getApplicationContext(),login.class);
-           startActivity(intent);
-           //Login_status();
+                mauth.signOut();
+                Intent intent = new Intent(getApplicationContext(),login.class);
+                startActivity(intent);
             }
         });
 
 
         dialog.show();
 
-        Toast.makeText(this, useremail, Toast.LENGTH_SHORT).show();
-//        Intent intent= new Intent(getApplicationContext(),postasset.class);
-//        startActivity(intent);
-//
 
     }
 
