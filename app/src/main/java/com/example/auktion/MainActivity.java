@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     TextView uname, umail, uphone;
     String username, useremail, userphone;
     ProgressBar pbar;
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         hotpic=findViewById(R.id.hotpic);
         hotbutton=findViewById(R.id.hotname);
         pbar=findViewById(R.id.progress);
+        dialog= new Dialog(this);
         mauth=FirebaseAuth.getInstance();
         currentuser=mauth.getCurrentUser();
         Login_status();
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         adapter= new myadatpter(options);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        pbar.setVisibility(View.GONE);
     }
 
 
@@ -98,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(Uri uri) {
 
                     Glide.with(getApplicationContext()).load(uri).into(hotpic).getView().setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    pbar.setVisibility(View.GONE);
+                   // pbar.setVisibility(View.GONE);
 
                 }
             });
@@ -140,20 +143,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void opendialog(View view) {
-//        Dialog dialog=new Dialog(getApplicationContext());
-//        dialog.setContentView(R.layout.userdialog);
-//        userdp=dialog.findViewById(R.id.userdp);
-//        umail=dialog.findViewById(R.id.uemail);
-//        uname=dialog.findViewById(R.id.uname);
-//        uphone=dialog.findViewById(R.id.uphone);
-//
-//
-//        dialog.show();
+         //dialog=new Dialog(getApplicationContext());
+        dialog.setContentView(R.layout.userdialog);
+        lgout=dialog.findViewById(R.id.logout);
+        userdp=dialog.findViewById(R.id.userdp);
+        umail=dialog.findViewById(R.id.uemail);
+        uname=dialog.findViewById(R.id.uname);
+        uphone=dialog.findViewById(R.id.uphone);
 
-        Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
+        lgout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Toast.makeText(MainActivity.this, "the button works", Toast.LENGTH_SHORT).show();
+           mauth.signOut();
+           Login_status();
+            }
+        });
+
+
+        dialog.show();
+
+       // Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
 //        Intent intent= new Intent(getApplicationContext(),postasset.class);
 //        startActivity(intent);
 //
+
     }
 
     public  void getuserdata(){

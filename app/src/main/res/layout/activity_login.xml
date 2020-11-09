@@ -53,15 +53,28 @@
         android:text="LOGIN"
         android:backgroundTint="@color/design_default_color_secondary"
         android:onClick="loginuser"/>
+    <Button
+        android:id="@+id/btnsign"
+        android:layout_width="wrap_content"
+        android:text="SignUp"
+        android:onClick="signup"
+        android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/signin"
-        android:text="signUp"
+        android:text="SignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:textColor="@color/design_default_color_primary"
         android:layout_below="@+id/login"
-        android:onClick="show"
+        android:onClick="hide"
         android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SignUp"
+        android:onClick="show"
         />
 </RelativeLayout>

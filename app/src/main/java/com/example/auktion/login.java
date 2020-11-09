@@ -86,4 +86,11 @@ public class login extends AppCompatActivity {
 
 
     }
+
+    public void signup(View view) {
+
+    }
+
+    public void hide(View view) {
+    }
 }
