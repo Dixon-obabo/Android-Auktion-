@@ -24,9 +24,9 @@ public class login extends AppCompatActivity {
     EditText phone;
     EditText email;
     EditText password;
-    TextView sigin;
+    TextView sigin,sup;
     FirebaseAuth auth;
-    Button logn;
+    Button logn,signin;
     FirebaseUser currentuser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +39,23 @@ public class login extends AppCompatActivity {
         password=findViewById(R.id.password);
         logn=findViewById(R.id.login);
         sigin=findViewById(R.id.signin);
-        logn.setText("LOGIN");
+        signin=findViewById(R.id.btnsign);
+        sup=findViewById(R.id.signup);
     }
 
     public void show(View view) {
-        if(sigin.getText().toString()=="signUp"){
-
             phone.setVisibility(View.VISIBLE);
             name.setVisibility(View.VISIBLE);
-            logn.setText("SignUp");
-            sigin.setText("logIn");
-
-        }
-        if(sigin.getText().toString()=="logIn"){
-            phone.setVisibility(View.GONE);
-            name.setVisibility(View.GONE);
-            logn.setText("LOGIN");
-            sigin.setText("signUp");
-        }
+            logn.setVisibility(View.GONE);
+            signin.setVisibility(View.VISIBLE);
+            sigin.setVisibility(View.VISIBLE);
+            sup.setVisibility(View.GONE);
+            //logn.setText("SignUp");
+            //sigin.setText("logIn");
     }
 
     public void loginuser(View view) {
-        if(logn.getText().toString()=="LOGIN"){
+
             auth.signInWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
@@ -69,28 +64,22 @@ public class login extends AppCompatActivity {
                     startActivity(intent);
                 }
             }).addOnFailureListener(e -> Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show());
-        }
-        if(logn.getText().toString()=="SignUp"){
-            auth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString().trim()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    currentuser= auth.getCurrentUser();
-                    String key= currentuser.getUid();
-                    Toast.makeText(login.this, "key", Toast.LENGTH_SHORT).show();
-
-                    FirebaseDatabase.getInstance().getReference("userdata").setValue(key);
-
-                }
-            }).addOnFailureListener(e -> Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show());
-        }
-
 
     }
 
     public void signup(View view) {
 
+
+
     }
 
     public void hide(View view) {
+        phone.setVisibility(View.GONE);
+        name.setVisibility(View.GONE);
+        logn.setVisibility(View.GONE);
+        signin.setVisibility(View.GONE);
+        sigin.setVisibility(View.GONE);
+        logn.setVisibility(View.VISIBLE);
+        sup.setVisibility(View.VISIBLE);
     }
 }

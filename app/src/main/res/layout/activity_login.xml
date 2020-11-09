@@ -57,24 +57,33 @@
         android:id="@+id/btnsign"
         android:layout_width="wrap_content"
         android:text="SignUp"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/design_default_color_secondary"
         android:onClick="signup"
+        android:visibility="gone"
         android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/signin"
-        android:text="SignIn"
+        android:text="Sign In"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:textColor="@color/design_default_color_primary"
-        android:layout_below="@+id/login"
+
+        android:layout_below="@+id/btnsign"
         android:onClick="hide"
+        android:visibility="gone"
         android:layout_centerHorizontal="true"
         />
     <TextView
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SignUp"
+        android:text="Sign Up"
+        android:layout_below="@+id/login"
+        android:layout_margin="5dp"
+        android:layout_centerHorizontal="true"
         android:onClick="show"
         />
 </RelativeLayout>
