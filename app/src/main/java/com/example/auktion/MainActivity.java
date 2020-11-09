@@ -151,6 +151,9 @@ public class MainActivity extends AppCompatActivity {
         umail=dialog.findViewById(R.id.uemail);
         uname=dialog.findViewById(R.id.uname);
         uphone=dialog.findViewById(R.id.uphone);
+        uphone.setText(userphone);
+        uname.setText(username);
+        umail.setText(useremail);
 
         lgout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
 
-        Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, useremail, Toast.LENGTH_SHORT).show();
 //        Intent intent= new Intent(getApplicationContext(),postasset.class);
 //        startActivity(intent);
 //
@@ -181,8 +184,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             String []data=snapshot.getValue().toString().split(",");
-            userphone=snapshot.toString();
+            userphone=data[0].replace("{phone=","");
             username=data[1].replace("name=","");
+            useremail=data[2].replace("email=","");
+
             hotbutton.setText(username);
         }
 
