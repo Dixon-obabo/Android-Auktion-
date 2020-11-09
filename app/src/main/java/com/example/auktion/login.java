@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
+import ui.user;
+
 public class login extends AppCompatActivity {
 
     EditText name;
@@ -69,9 +71,64 @@ public class login extends AppCompatActivity {
 
     public void signup(View view) {
 
+        if(phone.getText().toString()==null){
+            Toast.makeText(this, "Please provide a phone number", Toast.LENGTH_SHORT).show();
+        }else if(name.getText().toString()==null){
+            Toast.makeText(this, "Please provide a name", Toast.LENGTH_SHORT).show();
+        }else  if(password.getText().toString()==null){
+            Toast.makeText(this, "Please provide a password", Toast.LENGTH_SHORT).show();
+        }else if(email.getText().toString()==null){
+            Toast.makeText(this, "Please provide an email address", Toast.LENGTH_SHORT).show();
+        }else {
+
+            auth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    //Toast.makeText(login.this, "new user created", Toast.LENGTH_SHORT).show();
+                    String uid=authResult.getUser().getUid();
+
+                    user me= new user(name.getText().toString(),uid,phone.getText().toString(),email.getText().toString());
+
+                    FirebaseDatabase.getInstance().getReference("users").child(uid).setValue(me).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(login.this, "new user created", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intent);
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
+
+
+        }
+
+
+
 
 
     }
+
 
     public void hide(View view) {
         phone.setVisibility(View.GONE);
