@@ -52,8 +52,7 @@ public class login extends AppCompatActivity {
             signin.setVisibility(View.VISIBLE);
             sigin.setVisibility(View.VISIBLE);
             sup.setVisibility(View.GONE);
-            //logn.setText("SignUp");
-            //sigin.setText("logIn");
+
     }
 
     public void loginuser(View view) {
@@ -84,7 +83,7 @@ public class login extends AppCompatActivity {
             auth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
                 public void onSuccess(AuthResult authResult) {
-                    //Toast.makeText(login.this, "new user created", Toast.LENGTH_SHORT).show();
+
                     String uid=authResult.getUser().getUid();
 
                     user me= new user(name.getText().toString(),uid,phone.getText().toString(),email.getText().toString());

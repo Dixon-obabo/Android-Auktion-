@@ -30,13 +30,6 @@ String messagereg;
     public void setBid(int bid) {
         this.bid = bid;
     }
-//    public String getBid() {
-//        return bid;
-//    }
-//
-//    public void setBid(String bid) {
-//        this.bid = bid;
-//    }
 
     public String getName() {
         return name;

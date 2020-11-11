@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getdata(){
-        Query query=FirebaseDatabase.getInstance().getReference("posts");
+
         FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
         adapter= new myadatpter(options);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

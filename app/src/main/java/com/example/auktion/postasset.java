@@ -37,7 +37,7 @@ public class postasset extends AppCompatActivity {
     DatePicker picker;
     ImageButton img;
     EditText pstname,pstprice,pstdesc;
-    int PICK_PHOTO=1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
