@@ -6,16 +6,27 @@ public class asset {
     String key;
     String date;
     String description;
+    String owner;
+
 
     public  asset(){}
-    public asset(String name, String price, String key, String date, String description) {
+    public asset(String name, String price, String key, String date, String description,String owner) {
         this.name = name;
         this.price = price;
         this.key = key;
         this.date = date;
         this.description = description;
+        this.owner=owner;
     }
 
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
     public String getName() {
         return name;

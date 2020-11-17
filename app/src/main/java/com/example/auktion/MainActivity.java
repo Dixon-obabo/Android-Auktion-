@@ -86,7 +86,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void getdata(){
         opt=new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
-      options=new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseFirestore.getInstance().collection("OldPosts").document(currentuser.getUid())),asset.class).build();
+
+
+       // Query query= FirebaseFirestore.getInstance().collection("OldPosts").document(currentuser.getUid()).collection()
+        //options=new FirebaseRecyclerOptions.Builder<asset>().setQuery(,asset.class).build();
         //  FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
 //        adapter= new myadatpter(options);
 

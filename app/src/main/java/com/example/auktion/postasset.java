@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -37,6 +39,8 @@ public class postasset extends AppCompatActivity {
     DatePicker picker;
     ImageButton img;
     EditText pstname,pstprice,pstdesc;
+    FirebaseUser currentuser;
+    FirebaseAuth auth;
 
 
     @Override
@@ -48,6 +52,8 @@ public class postasset extends AppCompatActivity {
         pstprice=findViewById(R.id.postprice);
         pstdesc=findViewById(R.id.postdesc);
         img=findViewById(R.id.postimage);
+        auth=FirebaseAuth.getInstance();
+        currentuser=auth.getCurrentUser();
     }
 
 
@@ -60,7 +66,7 @@ public class postasset extends AppCompatActivity {
 
         String dat=picker.getDayOfMonth()+"/"+String.valueOf(picker.getMonth()+1)+"/"+picker.getYear();
         String key= FirebaseDatabase.getInstance().getReference().push().getKey();
-        asset mine= new asset(pstname.getText().toString(),pstprice.getText().toString(),key,dat,pstdesc.getText().toString());
+        asset mine= new asset(pstname.getText().toString(),pstprice.getText().toString(),key,dat,pstdesc.getText().toString(),currentuser.getUid());
         Toast.makeText(this, mine.getDate(), Toast.LENGTH_SHORT).show();
 
         FirebaseDatabase.getInstance().getReference("posts").child(key).setValue(mine).addOnSuccessListener(new OnSuccessListener<Void>() {
