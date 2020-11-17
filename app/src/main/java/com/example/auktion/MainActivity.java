@@ -60,14 +60,10 @@ public class MainActivity extends AppCompatActivity {
         currentuser=mauth.getCurrentUser();
         Login_status();
         getdata();
-        gethot();
+       // gethot();
         getuserdata();
 
-        secondadap= new myadatpter(options);
-        firstadap= new myadatpter(opt);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(firstadap);
-        pbar.setVisibility(View.GONE);
+        //secondadap= new myadatpter(options);
 
     }
 
@@ -87,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
     public void getdata(){
         opt=new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
 
+        firstadap= new myadatpter(opt);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(firstadap);
+        pbar.setVisibility(View.GONE);
 
        // Query query= FirebaseFirestore.getInstance().collection("OldPosts").document(currentuser.getUid()).collection()
         //options=new FirebaseRecyclerOptions.Builder<asset>().setQuery(,asset.class).build();
@@ -149,14 +149,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         firstadap.startListening();
-        secondadap.startListening();
+       // secondadap.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         firstadap.stopListening();
-        secondadap.stopListening();
+        //secondadap.stopListening();
     }
 
     public void opendialog(View view) {

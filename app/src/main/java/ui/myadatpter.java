@@ -36,7 +36,7 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
     @Override
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull asset model) {
         holder.desc.setText(model.getDescription());
-        holder.price.setText(model.getPrice());
+        holder.price.setText(model.getPrice()+" Ksh");
         holder.name.setText(model.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
