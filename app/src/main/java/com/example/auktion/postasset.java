@@ -73,7 +73,7 @@ public class postasset extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(postasset.this, "Asset posted ", Toast.LENGTH_SHORT).show();
-
+                
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

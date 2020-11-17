@@ -19,16 +19,21 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import ui.asset;
 import ui.myadatpter;
@@ -38,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
    private FirebaseAuth mauth;
     FirebaseUser currentuser;
     RecyclerView recyclerView;
+    private FirebaseFirestore firestore;
     myadatpter firstadap,secondadap;
     ImageView hotpic, userdp;
     Button hotbutton, lgout, myacc;
@@ -46,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar pbar;
     Dialog dialog;
     FirebaseRecyclerOptions<asset> opt;
-    FirebaseRecyclerOptions<asset>options;
+    FirebaseRecyclerOptions<asset>option;
+    FirestoreRecyclerOptions<asset> options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +65,10 @@ public class MainActivity extends AppCompatActivity {
         dialog= new Dialog(this);
         mauth=FirebaseAuth.getInstance();
         currentuser=mauth.getCurrentUser();
+        firestore=FirebaseFirestore.getInstance();
         Login_status();
         getdata();
-       // gethot();
+        gethot();
         getuserdata();
 
         //secondadap= new myadatpter(options);
@@ -88,8 +96,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(firstadap);
         pbar.setVisibility(View.GONE);
 
-       // Query query= FirebaseFirestore.getInstance().collection("OldPosts").document(currentuser.getUid()).collection()
-        //options=new FirebaseRecyclerOptions.Builder<asset>().setQuery(,asset.class).build();
+        CollectionReference reference=firestore.collection("OldPosts");
+//        DatabaseReference query=FirebaseDatabase.getInstance().getReference("posts");
+        Query query1= reference.whereEqualTo("owner",currentuser.getUid());
+        options=new FirestoreRecyclerOptions.Builder<asset>().setQuery(query1,asset.class).build();
+        secondadap= new myadatpter(options);
         //  FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
 //        adapter= new myadatpter(options);
 

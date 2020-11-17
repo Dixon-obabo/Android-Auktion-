@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:21.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.firebaseui:firebase-ui-database:6.3.0'
+    implementation 'com.firebaseui:firebase-ui-firestore:7.0.0'
    // def multidex_version = "2.0.1"
     implementation 'com.android.support:multidex:1.0.3'
    // implementation 'androidx.multidex:multidex:$multidex_version'
