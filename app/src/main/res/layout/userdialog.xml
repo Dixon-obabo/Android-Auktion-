@@ -49,6 +49,7 @@
         android:id="@+id/userassets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="showmine"
         android:layout_below="@+id/uemail"
         android:text="My Assets"/>
 </RelativeLayout>

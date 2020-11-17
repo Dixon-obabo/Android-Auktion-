@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 import ui.asset;
@@ -37,13 +38,15 @@ public class MainActivity extends AppCompatActivity {
    private FirebaseAuth mauth;
     FirebaseUser currentuser;
     RecyclerView recyclerView;
-    myadatpter adapter;
+    myadatpter firstadap,secondadap;
     ImageView hotpic, userdp;
     Button hotbutton, lgout, myacc;
     TextView uname, umail, uphone;
     String username, useremail, userphone;
     ProgressBar pbar;
     Dialog dialog;
+    FirebaseRecyclerOptions<asset> opt;
+    FirebaseRecyclerOptions<asset>options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
         getdata();
         gethot();
         getuserdata();
+
+        secondadap= new myadatpter(options);
+        firstadap= new myadatpter(opt);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(firstadap);
+        pbar.setVisibility(View.GONE);
+
     }
 
     public void Login_status(){
@@ -75,12 +85,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getdata(){
+        opt=new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
+      options=new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseFirestore.getInstance().collection("OldPosts").document(currentuser.getUid())),asset.class).build();
+        //  FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
+//        adapter= new myadatpter(options);
 
-        FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
-        adapter= new myadatpter(options);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        pbar.setVisibility(View.GONE);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView.setAdapter(adapter);
+//        pbar.setVisibility(View.GONE);
+
     }
 
 
@@ -132,13 +145,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.startListening();
+        firstadap.startListening();
+        secondadap.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        adapter.stopListening();
+        firstadap.stopListening();
+        secondadap.stopListening();
     }
 
     public void opendialog(View view) {
@@ -213,5 +228,20 @@ public class MainActivity extends AppCompatActivity {
     public void openbidasset(View view) {
         Intent intent= new Intent(getApplicationContext(),postasset.class);
         startActivity(intent);
+    }
+
+    public void showmine(View view) {
+       // opt=new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
+        //Intent intent = new Intent(getApplicationContext(),);
+//        opt= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
+////        FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
+//        secondadap= new myadatpter(opt);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setAdapter(secondadap);
+        recyclerView.swapAdapter(secondadap,true);
+////        pbar.setVisibility(View.GONE);
+
+        //Toast.makeText(this, currentuser.getUid(), Toast.LENGTH_SHORT).show();
+
     }
 }
