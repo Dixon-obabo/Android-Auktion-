@@ -37,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 
 import ui.asset;
 import ui.myadatpter;
+import ui.storeadapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser currentuser;
     RecyclerView recyclerView;
     private FirebaseFirestore firestore;
-    myadatpter firstadap,secondadap;
+    myadatpter firstadap;
+    storeadapter secondadap;
     ImageView hotpic, userdp;
     Button hotbutton, lgout, myacc;
     TextView uname, umail, uphone;
@@ -96,11 +98,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(firstadap);
         pbar.setVisibility(View.GONE);
 
+
         CollectionReference reference=firestore.collection("OldPosts");
 //        DatabaseReference query=FirebaseDatabase.getInstance().getReference("posts");
         Query query1= reference.whereEqualTo("owner",currentuser.getUid());
         options=new FirestoreRecyclerOptions.Builder<asset>().setQuery(query1,asset.class).build();
-        secondadap= new myadatpter(options);
+        secondadap= new storeadapter(options);
         //  FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
 //        adapter= new myadatpter(options);
 

@@ -1,6 +1,5 @@
 package ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -14,32 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.auktion.Bidasset;
-
 import com.example.auktion.R;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 
-public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewholder> {
-
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
+public class storeadapter extends FirestoreRecyclerAdapter<asset,storeadapter.myviewholder> {
 
 
-
-
-    public myadatpter(@NonNull FirebaseRecyclerOptions<asset> options) {
+    public storeadapter(@NonNull FirestoreRecyclerOptions<asset> options) {
         super(options);
     }
 
     @Override
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull asset model) {
+
         holder.desc.setText(model.getDescription());
         holder.price.setText(model.getPrice()+" Ksh");
         holder.name.setText(model.getName());
@@ -47,7 +36,7 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
             @Override
             public void onClick(View v) {
 
-                Intent intent= new Intent(holder.itemView.getContext(),Bidasset.class);
+                Intent intent= new Intent(holder.itemView.getContext(), Bidasset.class);
                 intent.putExtra("asset_name",model.getName());
                 intent.putExtra("asset_price",model.getPrice());
                 intent.putExtra("asset_desc",model.getDescription());
@@ -68,12 +57,15 @@ public class myadatpter extends FirebaseRecyclerAdapter<asset,myadatpter.myviewh
 
     }
 
+
     @NonNull
     @Override
     public myviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.asset_card,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.asset_card,parent,false);
         return new myviewholder(view);
     }
+
+
 
     class myviewholder extends RecyclerView.ViewHolder{
         TextView name;
