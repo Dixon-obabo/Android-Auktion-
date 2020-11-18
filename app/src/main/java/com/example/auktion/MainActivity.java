@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar pbar;
     Dialog dialog;
     FirebaseRecyclerOptions<asset> opt;
-    FirebaseRecyclerOptions<asset>option;
     FirestoreRecyclerOptions<asset> options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         gethot();
         getuserdata();
 
-        //secondadap= new myadatpter(options);
+
 
     }
 
@@ -100,16 +99,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         CollectionReference reference=firestore.collection("OldPosts");
-//        DatabaseReference query=FirebaseDatabase.getInstance().getReference("posts");
+
         Query query1= reference.whereEqualTo("owner",currentuser.getUid());
         options=new FirestoreRecyclerOptions.Builder<asset>().setQuery(query1,asset.class).build();
         secondadap= new storeadapter(options);
-        //  FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
-//        adapter= new myadatpter(options);
 
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setAdapter(adapter);
-//        pbar.setVisibility(View.GONE);
 
     }
 
@@ -163,14 +157,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         firstadap.startListening();
-       // secondadap.startListening();
+        secondadap.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         firstadap.stopListening();
-        //secondadap.stopListening();
+        secondadap.stopListening();
     }
 
     public void opendialog(View view) {
@@ -248,17 +242,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showmine(View view) {
-       // opt=new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
-        //Intent intent = new Intent(getApplicationContext(),);
-//        opt= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
-////        FirebaseRecyclerOptions<asset> options= new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("OldPosts").child(currentuser.getUid()),asset.class).build();
-//        secondadap= new myadatpter(opt);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //recyclerView.setAdapter(secondadap);
-        recyclerView.swapAdapter(secondadap,true);
-////        pbar.setVisibility(View.GONE);
 
-        //Toast.makeText(this, currentuser.getUid(), Toast.LENGTH_SHORT).show();
+        recyclerView.swapAdapter(secondadap,true);
 
     }
 }
