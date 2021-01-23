@@ -98,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
         pbar.setVisibility(View.GONE);
 
 
-        CollectionReference reference=firestore.collection("OldPosts");
-
-        Query query1= reference.whereEqualTo("owner",currentuser.getUid());
-        options=new FirestoreRecyclerOptions.Builder<asset>().setQuery(query1,asset.class).build();
-        secondadap= new storeadapter(options);
+//        CollectionReference reference=firestore.collection("OldPosts");
+//
+//        Query query1= reference.whereEqualTo("owner",currentuser.getUid());
+//        options=new FirestoreRecyclerOptions.Builder<asset>().setQuery(query1,asset.class).build();
+//        secondadap= new storeadapter(options);
 
 
     }
@@ -157,14 +157,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         firstadap.startListening();
-        secondadap.startListening();
+        //secondadap.startListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         firstadap.stopListening();
-        secondadap.stopListening();
+        //secondadap.stopListening();
     }
 
     public void opendialog(View view) {
@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.setContentView(R.layout.userdialog);
         lgout=dialog.findViewById(R.id.logout);
+        myacc=dialog.findViewById(R.id.userassets);
         userdp=dialog.findViewById(R.id.userdp);
         umail=dialog.findViewById(R.id.uemail);
         uname=dialog.findViewById(R.id.uname);
@@ -179,6 +180,16 @@ public class MainActivity extends AppCompatActivity {
         uphone.setText(userphone);
         uname.setText(username);
         umail.setText(useremail);
+
+        myacc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Myassets.class);
+                intent.putExtra("userid",currentuser.getUid());
+                startActivity(intent);
+            }
+        });
+
 
         lgout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void getuserdata(){
-        FirebaseDatabase.getInstance().getReference("biders/"+currentuser.getPhoneNumber()).addChildEventListener(getuser);
+       // FirebaseDatabase.getInstance().getReference("biders/"+currentuser.getUid()).addChildEventListener(getuser);
     }
 
     ChildEventListener getuser= new ChildEventListener() {
@@ -204,10 +215,16 @@ public class MainActivity extends AppCompatActivity {
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             String []data=snapshot.getValue().toString().split(",");
             userphone=data[0].replace("{phone=","");
-            username=data[1].replace("name=","");
+            //username=data[1].replace("name=","");
             useremail=data[2].replace("email=","");
 
-            hotbutton.setText(username);
+            if(useremail==currentuser.getEmail()){
+                hotbutton.setText(username);
+
+            }else {
+                hotbutton.setText("no name");
+            }
+
         }
 
         @Override

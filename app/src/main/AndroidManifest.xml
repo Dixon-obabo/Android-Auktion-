@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Auktion">
-        <activity android:name=".postasset"></activity>
+        <activity android:name=".Myassets"></activity>
+        <activity android:name=".postasset" />
         <activity android:name=".Bidasset" />
         <activity android:name=".login" />
         <activity android:name=".MainActivity">

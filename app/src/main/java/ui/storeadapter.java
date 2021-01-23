@@ -26,6 +26,7 @@ public class storeadapter extends FirestoreRecyclerAdapter<asset,storeadapter.my
         super(options);
     }
 
+
     @Override
     protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull asset model) {
 
