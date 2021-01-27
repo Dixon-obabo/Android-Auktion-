@@ -29,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -157,14 +158,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         firstadap.startListening();
-        //secondadap.startListening();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         firstadap.stopListening();
-        //secondadap.stopListening();
+
     }
 
     public void opendialog(View view) {
@@ -207,46 +208,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void getuserdata(){
-       // FirebaseDatabase.getInstance().getReference("biders/"+currentuser.getUid()).addChildEventListener(getuser);
-    }
 
-    ChildEventListener getuser= new ChildEventListener() {
-        @Override
-        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            String []data=snapshot.getValue().toString().split(",");
-            userphone=data[0].replace("{phone=","");
-            //username=data[1].replace("name=","");
-            useremail=data[2].replace("email=","");
-
-            if(useremail==currentuser.getEmail()){
+        FirebaseDatabase.getInstance().getReference("biders/"+currentuser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String []nm=snapshot.getValue().toString().split(",");
+                username=nm[1].replace("name=","");
+                userphone=nm[0].replace("{phone=","");
+                useremail=nm[2].replace("email=","");
                 hotbutton.setText(username);
 
-            }else {
-                hotbutton.setText("no name");
             }
 
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        @Override
-        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+        });
 
-        }
 
-        @Override
-        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+    }
 
-        }
-
-        @Override
-        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    };
 
 
     public void logout(View view) {
