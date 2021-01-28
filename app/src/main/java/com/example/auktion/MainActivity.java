@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar pbar;
     Dialog dialog;
     FirebaseRecyclerOptions<asset> opt;
-    FirestoreRecyclerOptions<asset> options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,14 +96,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(firstadap);
         pbar.setVisibility(View.GONE);
-
-
-//        CollectionReference reference=firestore.collection("OldPosts");
-//
-//        Query query1= reference.whereEqualTo("owner",currentuser.getUid());
-//        options=new FirestoreRecyclerOptions.Builder<asset>().setQuery(query1,asset.class).build();
-//        secondadap= new storeadapter(options);
-
 
     }
 

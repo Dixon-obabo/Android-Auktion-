@@ -26,7 +26,6 @@ public class Myassets extends AppCompatActivity {
         myrecycler=findViewById(R.id.marecycler);
         Intent intent=getIntent();
         userid=intent.getStringExtra("userid");
-        Toast.makeText(this, userid, Toast.LENGTH_SHORT).show();
         get_data();
     }
 
