@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
         gethot();
         getuserdata();
 
-
-
     }
 
     public void Login_status(){
@@ -91,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void getdata(){
         opt=new FirebaseRecyclerOptions.Builder<asset>().setQuery(FirebaseDatabase.getInstance().getReference("posts"),asset.class).build();
-
         firstadap= new myadatpter(opt);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(firstadap);
@@ -191,11 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
         dialog.show();
-
-
     }
 
     public  void getuserdata(){
@@ -232,8 +225,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showmine(View view) {
-
         recyclerView.swapAdapter(secondadap,true);
-
     }
 }
